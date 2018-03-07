@@ -1,0 +1,25 @@
+# iOS CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/ios-migrating-from-1-2/ for more details
+#
+version: 2
+jobs:
+  build:
+
+    # Specify the Xcode version to use
+    macos:
+      xcode: "8.3.3"
+
+    steps:
+      - checkout
+
+      # Install CocoaPods
+      - run:
+          name: Install CocoaPods
+          command: pod install
+
+      - run: curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+      - run: nvm install 7
+      - run: npm install
+      - run: npm install -g electron
+      - run: npm run package-ci
